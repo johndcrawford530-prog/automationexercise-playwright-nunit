@@ -1,0 +1,23 @@
+# Build artifacts
+bin/
+obj/
+
+# Playwright artifacts
+playwright-report/
+test-results/
+*.zip
+
+# Screenshots and reports
+Screenshots/
+Reports/
+*.html
+
+# User-specific files
+*.user
+*.suo
+
+# VS Code settings
+.vscode/
+
+# Logs
+*.log
