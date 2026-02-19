@@ -1,5 +1,0 @@
-C:\Users\johnd\OneDrive\Desktop\SDET_Training\AutomationExerciseDemo\obj\Debug\net10.0\AutomationExerciseDemo.csproj.AssemblyReference.cache
-C:\Users\johnd\OneDrive\Desktop\SDET_Training\AutomationExerciseDemo\obj\Debug\net10.0\AutomationExerciseDemo.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\johnd\OneDrive\Desktop\SDET_Training\AutomationExerciseDemo\obj\Debug\net10.0\AutomationExerciseDemo.AssemblyInfoInputs.cache
-C:\Users\johnd\OneDrive\Desktop\SDET_Training\AutomationExerciseDemo\obj\Debug\net10.0\AutomationExerciseDemo.AssemblyInfo.cs
-C:\Users\johnd\OneDrive\Desktop\SDET_Training\AutomationExerciseDemo\obj\Debug\net10.0\AutomationExerciseDemo.csproj.CoreCompileInputs.cache
