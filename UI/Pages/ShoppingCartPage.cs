@@ -1,9 +1,8 @@
 using Microsoft.Playwright;
-using System.Threading.Tasks;
 using AutomationExerciseDemo.UI.Pages;
 using AutomationExerciseDemo.UI.Models;
 using AutomationExerciseDemo.Config;
-using System.Security.Cryptography;
+using System.Linq;
 
 
 namespace AutomationExerciseDemo.UI.Pages
@@ -12,6 +11,7 @@ namespace AutomationExerciseDemo.UI.Pages
     {
         //locators:
         private readonly ILocator _cartRows;
+        private const string CheckoutButton = "a.check_out";
 
         //constructor:
         public ShoppingCartPage(IPage page, EnvironmentConfig config) : base(page, config)
@@ -55,28 +55,16 @@ namespace AutomationExerciseDemo.UI.Pages
 
 
         //Find specific item in cart:
-        public async Task<CartItem> getCartItem(string productName)
+        public async Task<CartItem> getCartItemAsync(string productName)
         {
-            var productRow = _cartRows.Filter(new() { HasTextString = productName});
-
-            var name = await productRow.Locator(".cart_description h4 a").InnerTextAsync();
-            var description = await productRow.Locator(".cart_description p").InnerTextAsync();
-            var priceText = await productRow.Locator(".cart_price p").InnerTextAsync();
-            var quantityText = await productRow.Locator(".cart_quantity input").InputValueAsync();
-            var totalText = await productRow.Locator(".cart_total_price").InnerTextAsync();
-
-            var product = new CartItem
-            {
-                Name = name.Trim(),
-                Description = description.Trim(),
-                Price = ParsePrice(priceText),
-                Quantity = int.Parse(quantityText),
-                Total = ParsePrice(totalText)
-            };
+            var cartItems = await GetCartItemsAsync();
+            var product = cartItems.FirstOrDefault(i => i.Name.Equals(productName, StringComparison.OrdinalIgnoreCase));
 
             return product;
 
         }
+
+        
 
         // parse price data:
         private decimal ParsePrice(string text)
@@ -85,9 +73,29 @@ namespace AutomationExerciseDemo.UI.Pages
         }
 
         // remove item from cart
+        public async Task RemoveItemAsync(string productName)
+        {
+            //find Item row:
+            var itemRow = _cartRows.Filter(new(){HasTextString = productName});
+
+            // if item not found, fail
+            if(await itemRow.CountAsync() == 0)
+            {
+                throw new Exception($"product '{productName}' not found in cart");
+            }
+
+            //click remove button
+            await itemRow.Locator(".cart_quantity_delete").ClickAsync();
+
+            //ensure row is removed.
+            await Assertions.Expect(itemRow).ToHaveCountAsync(0);
+        }
 
         //proceed to checkout
-
+        public async Task ProceedtoCheckoutAsync()
+        {
+            await Page.Locator(CheckoutButton).ClickAsync();
+        }
 
 
 
