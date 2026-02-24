@@ -55,7 +55,7 @@ namespace AutomationExerciseDemo.UI.Pages
 
 
         //Find specific item in cart:
-        public async Task<CartItem> getCartItemAsync(string productName)
+        public async Task<CartItem> GetCartItemAsync(string productName)
         {
             var cartItems = await GetCartItemsAsync();
             var product = cartItems.FirstOrDefault(i => i.Name.Equals(productName, StringComparison.OrdinalIgnoreCase));

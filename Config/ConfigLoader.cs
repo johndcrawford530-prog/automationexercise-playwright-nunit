@@ -1,5 +1,9 @@
 using System.Buffers.Text;
-using Microsoft.Extensions.configuration;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
+
+
+
 
 namespace AutomationExerciseDemo.Config
 {
@@ -22,7 +26,7 @@ namespace AutomationExerciseDemo.Config
             return new EnvironmentConfig
             {
                 BaseUrl = envSection["baseUrl"],
-                LoginPatch = envSection["loginPath"],
+                LoginPath = envSection["loginPath"],
                 ApiBaseUrl = envSection["apiBaseUrl"]
             };
 
