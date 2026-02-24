@@ -12,7 +12,7 @@ namespace AutomationExerciseDemo.UI.Models
         public string Address2{get; set;}
         public string CityStateZip {get; set;}
         public string Country{get; set;}
-        public string phone{get; set;}
+        public string Phone{get; set;}
 
     }
 
