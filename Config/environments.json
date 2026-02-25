@@ -1,0 +1,12 @@
+{
+    "Environment":{
+        "Name": "QA",
+        "BaseUrl": "https://automationexercise.com",
+        "LoginPath": "/login",
+        "ApiBaseUrl": "https://automationexercise.com/api"
+    },
+    "Browser":{
+        "headless": false,
+        "SlowMo":0
+    }
+}
