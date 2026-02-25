@@ -2,10 +2,9 @@ using Microsoft.Playwright;
 using System.Threading.Tasks;
 using AutomationExerciseDemo.Config;
 using NUnit.Framework;
-using System.Security.Permissions;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
-using System.Runtime.InteropServices;
+
 
 
 
@@ -55,7 +54,11 @@ namespace AutomationExerciseDemo.UI.Tests
             Config = ConfigLoader.Load();
 
             Playwright = await Microsoft.Playwright.Playwright.CreateAsync();
-            Browser = await Playwright.Chromium.LaunchAsync(new() {Headless = false});
+            Browser = await Playwright.Chromium.LaunchAsync(new() 
+                {
+                    Headless = Config!.Browser.Headless,
+                    SlowMo = Config!.Browser.SlowMo
+                });
            
            //ad blocking context
            var context = await Browser.NewContextAsync(new()

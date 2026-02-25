@@ -8,6 +8,8 @@ namespace AutomationExerciseDemo.Config
         public string LoginPath{ get; set;}
         public string ApiBaseUrl{get; set;}
 
+        public BrowserConfig Browser{get; set;}
+
     }
 
 

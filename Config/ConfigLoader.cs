@@ -1,6 +1,9 @@
-using System.Buffers.Text;
+
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
+using AutomationExerciseDemo.Config;
+
+
+
 
 
 
@@ -20,15 +23,31 @@ namespace AutomationExerciseDemo.Config
 
         public static EnvironmentConfig Load()
         {
-            var activeEnv = _config["activeEnvironment"];
-            var envSection = _config.GetSection($"environments:{activeEnv}");
+            var configBuilder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("Environments.json", optional: false, reloadOnChange: true);
+            var configRoot = configBuilder.Build();
 
-            return new EnvironmentConfig
+            // load environment section
+            var envSection = configRoot.GetSection("Environment");
+
+            var envConfig = new EnvironmentConfig
             {
-                BaseUrl = envSection["baseUrl"],
-                LoginPath = envSection["loginPath"],
-                ApiBaseUrl = envSection["apiBaseUrl"]
+                BaseUrl = envSection["BaseUrl"],
+                LoginPath = envSection["LoginPath"],
+                ApiBaseUrl = envSection["ApiBaseUrl"]
             };
+
+            //load browser section
+            var browserSection = configRoot.GetSection("Browser");
+
+            var browserConfig = new BrowserConfig
+            {
+                Headless = bool.Parse(browserSection["Headless"]?? "false"),
+                SlowMo = int.Parse(browserSection["SlowMo"]?? "0")
+            };
+
+            envConfig.Browser = browserConfig;
+
+            return envConfig;
 
         }
 
