@@ -1,4 +1,4 @@
-FirstName, LastName, Company, Email, Password, Address1, Address2, City, State, ZipCode, MobileNumber, Title, DOB
-John, Smith, Test Inc., 123@test.com, Welcome01!, 123 ABC St, Add2, Test City, NC, 27253, 3361234567, Mr., 05/19/1987
-Jane Doe, Company B, test@test.com, Welcome01!, 123 ABC St, Add2, Test City, NC, 27253, 3364561234, Mrs., 01/24/1989
-Lainey Deer, Company A, ldeer@test.com, Welcome01!, 123 ABC St, Add2, Test City, NC, 27253, 3364561234, Ms., 08/27/2021
+Name, FirstName, LastName, Company, Email, Password, Address1, Address2, City, State, ZipCode, MobileNumber, Title, DOB
+John Smith, John, Smith, Test Inc., 123@test.com, Welcome01!, 123 ABC St, Add2, Test City, NC, 27253, 3361234567, Mr., 05/19/1987
+Jane Doe, Jane Doe, Company B, test@test.com, Welcome01!, 123 ABC St, Add2, Test City, NC, 27253, 3364561234, Mrs., 01/24/1989
+Lainey Deer, Lainey Deer, Company A, ldeer@test.com, Welcome01!, 123 ABC St, Add2, Test City, NC, 27253, 3364561234, Ms., 08/27/2021
