@@ -26,12 +26,12 @@ namespace AutomationExerciseDemo.UI.Tests
         }
 
         [Test]
-        public async Task RegisterUserTest()
+        public async Task RegisterUserTest_TestCase_1()
         {
 
             //load CSV test Data
             var csvPath = Path.Combine(
-                Directory.GetCurrentDirectory(),
+                AppContext.BaseDirectory,
                 "Data",
                 "TestData",
                 "Registration",
@@ -58,6 +58,9 @@ namespace AutomationExerciseDemo.UI.Tests
                 //Verify new user account is created
                 Assert.That(await _accountCreatedPage.IsSuccessMessageVisibleAsync(), Is.True);
 
+                //Click Continue:
+                await _accountCreatedPage.ClickContinue();
+
 
 
                 //Delete Account:
@@ -67,18 +70,44 @@ namespace AutomationExerciseDemo.UI.Tests
                 Assert.That(await _accountDeletedPage.IsSuccessMessageVisibleAsync(), Is.True);
 
 
+            }
+        }
+
+        [Test]
+        public async Task RegisterExistingUser_TestCase_5()
+        {
+            //load CSV data:
+            var csvPath = Path.Combine(
+                AppContext.BaseDirectory,
+                "Data",
+                "TestData",
+                "Registration",
+                "RegistrationExistingUsers.csv"
+            );
+
+            var testData = CsvReader.ReadCsv<UserData>(csvPath);
 
 
+            // attempt to register an Existing User
+            foreach(var data in testData)
+            {
 
+                //Navigate to Login:
+                await _loginPage.NavigateAsync();
+
+
+                //enter signup name and email, click SignUp button
+                await _loginPage.RegisterAsync(data.Name, data.Email);
+                
             }
 
 
+            //verify Email Address already exist! error is displayed
+            Assert.That(await _loginPage.IsEmailExistMsgVisible(), Is.True);
 
-            
+
+
         }
-
-
-
 
     }
 }
