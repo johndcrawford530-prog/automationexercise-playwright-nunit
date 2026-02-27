@@ -69,7 +69,7 @@ namespace AutomationExerciseDemo.UI.Pages
         
             // parse out the Date of Birth values            
            
-            if(DateTime.TryParseExact(data.DOB, "MM-dd-yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime dob))
+            if(DateTime.TryParseExact(data.DOB, "MM/dd/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime dob))
             {
                              
                 //select the DOB - Day

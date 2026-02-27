@@ -16,14 +16,17 @@ namespace AutomationExerciseDemo.Config
 
         static ConfigLoader()
         {
-            _config = new ConfigurationBuilder().AddJsonFile("environments.json").Build();
+            var basePath = AppContext.BaseDirectory;
+            _config = new ConfigurationBuilder().SetBasePath(basePath).AddJsonFile("environments.json", optional:false, reloadOnChange:true).Build();
 
 
         }
 
         public static EnvironmentConfig Load()
         {
-            var configBuilder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("Environments.json", optional: false, reloadOnChange: true);
+            var basePath = AppContext.BaseDirectory;
+
+            var configBuilder = new ConfigurationBuilder().SetBasePath(basePath).AddJsonFile("Environments.json", optional: false, reloadOnChange: true);
             var configRoot = configBuilder.Build();
 
             // load environment section

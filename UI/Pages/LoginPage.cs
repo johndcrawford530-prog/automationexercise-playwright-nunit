@@ -18,6 +18,7 @@ namespace AutomationExerciseDemo.UI.Pages
         private const string SignUpName = "input[data-qa='signup-name']";
         private const string SignUpEmail = "input[data-qa='signup-email']";
         private const string SignUpButton = "button[data-qa='signup-button']";
+        private const string EmailExistsMsg = "p:has-text('Email Address already exist!')";
 
 
         //constructor:
@@ -58,6 +59,12 @@ namespace AutomationExerciseDemo.UI.Pages
         {
             return await IsVisibleAsync(LoginError);
 
+        }
+
+        //check for Email already exisits message:
+        public async Task<bool> IsEmailExistMsgVisible()
+        {
+            return await IsVisibleAsync(EmailExistsMsg);
         }
 
 

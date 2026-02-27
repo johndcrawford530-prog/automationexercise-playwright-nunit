@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Reflection;
+using Microsoft.Playwright;
 using NUnit.Framework.Interfaces;
 
 namespace AutomationExerciseDemo.Utilities
@@ -22,20 +23,24 @@ namespace AutomationExerciseDemo.Utilities
 
             for(int i =1; i < lines.Length; i++)
             {
+
                 var obj = new T();
                 var values = lines[i].Split(',');
 
-                for(int j = 0; j<headers.Length; j++)
+                for(int j = 0; j<headers.Length && j < values.Length; j++)
                 {
+                    var header = headers[j].Trim();
+                    var value = values[j].Trim();
+
                     var prop = typeof(T).GetProperty(
-                        headers[i],
+                        header,
                         BindingFlags.Public|BindingFlags.Instance|BindingFlags.IgnoreCase
                     );
 
                     if (prop != null)
                     {
                         var convertedValue = Convert.ChangeType(
-                            values[j],
+                            value,
                             prop.PropertyType,
                             CultureInfo.InvariantCulture
                         );
@@ -50,7 +55,6 @@ namespace AutomationExerciseDemo.Utilities
             return results;
 
         }
-
 
     }
 }

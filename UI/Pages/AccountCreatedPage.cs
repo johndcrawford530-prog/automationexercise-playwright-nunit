@@ -13,6 +13,7 @@ namespace AutomationExerciseDemo.UI.Pages
         //locators:
         private const string AccountCreatedMsg = "[data-qa='account-created']";
         private const string DeleteAccountLink = "a[href='/delete_account']";
+        private const string ContinueButton = "a[data-qa='continue-button']";
 
 
 
@@ -31,6 +32,12 @@ namespace AutomationExerciseDemo.UI.Pages
         public async Task ClickDeleteAccount()
         {
             await Page.Locator(DeleteAccountLink).ClickAsync();
+        }
+
+        //Click Continue button:
+        public async Task ClickContinue()
+        {
+            await Page.Locator(ContinueButton).ClickAsync();
         }
 
 

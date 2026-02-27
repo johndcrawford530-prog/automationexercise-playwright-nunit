@@ -10,14 +10,30 @@
   <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.3" />
   <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="10.0.3" />
   <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.3" />
-  <Reference Include="AventStack.ExtentReports">
-    <HintPath>libs\ExtentReports.dll</HintPath>
-  </Reference>
 
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-    <PackageReference Include="Microsoft.Playwright" Version="1.57.0" />
-    <PackageReference Include="NUnit" Version="4.4.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="6.1.0" />
+
+  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+  <PackageReference Include="Microsoft.Playwright" Version="1.57.0" />
+  <PackageReference Include="NUnit" Version="3.13.3" />
+  <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+
+  <PackageReference Include="ExtentReports" Version="5.0.4" />
+  
+  <Content Include="Config\environments.json">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Link>environments.json</Link>
+  </Content>
+
+   <Content Include="Data\TestData\Registration\RegistrationData.csv">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </Content>
+
+  <Content Include="Data\TestData\Registration\RegistrationExistingUsers.csv">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </Content>
+
+
+ 
   </ItemGroup>
 
 </Project>
