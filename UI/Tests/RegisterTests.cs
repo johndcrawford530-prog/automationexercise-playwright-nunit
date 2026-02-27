@@ -67,18 +67,8 @@ namespace AutomationExerciseDemo.UI.Tests
                 Assert.That(await _accountDeletedPage.IsSuccessMessageVisibleAsync(), Is.True);
 
 
-
-
-
             }
-
-
-
-            
         }
-
-
-
 
     }
 }
