@@ -17,8 +17,8 @@ namespace AutomationExerciseDemo.UI.Pages
     private const string ProductsLink = "a[href='/products']";
     private const string CartLink = "a[href='/view_cart']";
     private const string ContactUsLink = "a[href='/contact_us']";
+    private const string LogoutLink = "a[href='/logout']";
     private const string LoggedInUserLabel = "a:has-text('Logged in as')";
-
     private string ExpectedUrl => Config.BaseUrl;
 
     //constructor
@@ -73,6 +73,13 @@ namespace AutomationExerciseDemo.UI.Pages
     {
         return await IsVisibleAsync(LoggedInUserLabel);
     }
+
+
+    //Click Logout link:
+    public async Task ClickLogoutAsync()
+        {
+            await Page.Locator(LogoutLink).ClickAsync();
+        }
 
     }
 }
