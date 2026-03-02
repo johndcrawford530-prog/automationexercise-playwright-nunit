@@ -19,6 +19,9 @@ namespace AutomationExerciseDemo.UI.Pages
         private const string SignUpEmail = "input[data-qa='signup-email']";
         private const string SignUpButton = "button[data-qa='signup-button']";
         private const string EmailExistsMsg = "p:has-text('Email Address already exist!')";
+        private const string SignupLoginLink = "a[href='/login']";
+
+
 
 
         //constructor:
@@ -39,7 +42,7 @@ namespace AutomationExerciseDemo.UI.Pages
         public async Task LoginAsync(string email, string password)
         {
             await TypeAsync(EmailInput, email);
-            await TypeAsync(SignUpEmail, email);
+            await TypeAsync(PasswordInput, password);
             await ClickAsync(LoginButton);
         }
 
@@ -66,6 +69,12 @@ namespace AutomationExerciseDemo.UI.Pages
         {
             return await IsVisibleAsync(EmailExistsMsg);
         }
+
+        //confirm signup-login link is displayed, indicating user has been looged out
+        public async Task<bool> IsUserLoggedOut()
+        {
+            return await IsVisibleAsync(SignupLoginLink);
+        } 
 
 
 
