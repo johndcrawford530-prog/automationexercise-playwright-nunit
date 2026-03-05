@@ -32,13 +32,13 @@ namespace AutomationExerciseDemo.UI.Pages
         // Click the DownloadInvoice button:
         public async Task ClickDownloadInvoice()
         {
-            await Page.Locator(DownloadInvoiceButton).ClickAsync();
+            await ClickAsync(DownloadInvoiceButton);
         }
 
         //Click Continue button:
         public async Task ClickContinue()
         {
-            await Page.Locator(ContinueButton).ClickAsync();
+            await ClickAsync(ContinueButton);
         }
 
     }    
