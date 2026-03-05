@@ -123,7 +123,7 @@ namespace AutomationExerciseDemo.UI.Pages
         public async Task CreateAccountAsync()
         {
             // Click create account button 
-            await Page.Locator(CreateAccountButton).ClickAsync();
+            await ClickAsync(CreateAccountButton);
         }
 
     }

@@ -31,13 +31,13 @@ namespace AutomationExerciseDemo.UI.Pages
         //delete user account once created:
         public async Task ClickDeleteAccount()
         {
-            await Page.Locator(DeleteAccountLink).ClickAsync();
+            await ClickAsync(DeleteAccountLink);
         }
 
         //Click Continue button:
         public async Task ClickContinue()
         {
-            await Page.Locator(ContinueButton).ClickAsync();
+            await ClickAsync(ContinueButton);
         }
 
 

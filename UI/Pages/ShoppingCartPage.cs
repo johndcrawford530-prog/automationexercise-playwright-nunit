@@ -94,7 +94,7 @@ namespace AutomationExerciseDemo.UI.Pages
         //proceed to checkout
         public async Task ProceedtoCheckoutAsync()
         {
-            await Page.Locator(CheckoutButton).ClickAsync();
+            await ClickAsync(CheckoutButton);
         }
 
 

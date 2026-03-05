@@ -42,7 +42,7 @@ namespace AutomationExerciseDemo.UI.Pages
         //click the pay and confirm button:
         public async Task ClickPayButton()
         {
-            await Page.Locator(PayButton).ClickAsync();
+            await ClickAsync(PayButton);
         }
 
 

@@ -137,7 +137,7 @@ namespace AutomationExerciseDemo.UI.Pages
         //Click Place Order:
         public async Task ClickPlaceOrder()
         {
-            await Page.Locator(CheckOutButton).ClickAsync();
+            await ClickAsync(CheckOutButton);
             
         }
 
