@@ -12,7 +12,7 @@ namespace AutomationExerciseDemo.UI.Pages
 
 
     //locators:
-    private const string HomePageText = "h2:has-text('Full-Fledged practice website for Automation Engineers')";
+    private const string HomePageText = "div.features_items h2.title:has-text('FEATURES ITEMS')";
     private const string SignupLoginLink = "a[href='/login']";
     private const string ProductsLink = "a[href='/products']";
     private const string CartLink = "a[href='/view_cart']";
@@ -36,8 +36,8 @@ namespace AutomationExerciseDemo.UI.Pages
     // Check if home page loaded
     public async Task<bool> IsHomePageVisibleAsync()
     {
-        var currentUrl = Page.Url;
-        var urlMatches = currentUrl.Equals(ExpectedUrl, StringComparison.OrdinalIgnoreCase);
+        var currentUrl = Page.Url.TrimEnd("/");
+        var urlMatches = currentUrl.Equals(ExpectedUrl.TrimEnd("/"), StringComparison.OrdinalIgnoreCase);
         var bannerVisible = await IsVisibleAsync(HomePageText);
 
         return urlMatches && bannerVisible;
@@ -78,6 +78,10 @@ namespace AutomationExerciseDemo.UI.Pages
     //Check if user is logged in
     public async Task<bool> IsUserLoggedInAsync()
     {
+        //wait for login page to navigate to Home page.
+        await WaitForVisibleAsync(LoggedInUserLabel);
+
+
         return await IsVisibleAsync(LoggedInUserLabel);
     }
 

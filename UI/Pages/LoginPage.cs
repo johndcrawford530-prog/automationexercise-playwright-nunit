@@ -2,6 +2,7 @@ using Microsoft.Playwright;
 using System.Threading.Tasks;
 using AutomationExerciseDemo.Config;
 using System.Net.Quic;
+using static Microsoft.Playwright.Assertions;
 
 
 namespace AutomationExerciseDemo.UI.Pages
@@ -41,9 +42,76 @@ namespace AutomationExerciseDemo.UI.Pages
         //login Action
         public async Task LoginAsync(string email, string password)
         {
+            //check page loadstate:
+            await Page.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
+            await ClearAdsAsync();
+
+            //enter login data:
             await TypeAsync(EmailInput, email);
             await TypeAsync(PasswordInput, password);
-            await ClickAsync(LoginButton);
+
+            //wait for button to be visible:
+            await WaitForVisibleAsync(LoginButton);
+            await Expect(Page.Locator(LoginButton)).ToBeEnabledAsync();
+
+            //scroll into view if needed:
+           await Page.Locator(LoginButton).ScrollIntoViewIfNeededAsync();
+
+            //try normal Click:
+            try
+            {
+                //check page loadstate:
+                await Page.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
+                
+                //click Login               
+                await ClickAsync(LoginButton);
+
+                //Wait for Navigation:
+                await Page.WaitForURLAsync(url => !url.ToString().Contains("/login"));
+               
+
+                
+            }
+            catch
+            {
+                //force click:
+                await Page.Locator(LoginButton).ClickAsync(new() {Force=true});
+            }
+          /*  
+
+            //if page fails to navigate to home page, try clearing ads and clicking Login again:
+
+                //wait a second for page ad-Hijack:
+                await Page.WaitForTimeoutAsync(3000);
+
+            //if URL is still on /Login, then re-click
+            if (Page.Url.Contains("/login"))
+            {
+                await ClearAdsAsync();
+
+                //ensure LoginButton is enabled
+                await WaitForVisibleAsync(LoginButton);
+
+                //force click:
+                await Page.Locator(LoginButton).ClickAsync(new() {Force=true});
+
+                //wait for possible hijack again
+                await Page.WaitForTimeoutAsync(3000);
+            }
+            */
+
+            //if page gets hijacked by Google Vignette ad, recover:
+            if (Page.Url.Contains("google_vignette"))
+            {
+                //navigate to baseURL: and wait for DOM content to load
+                await Page.GotoAsync(Config.BaseUrl);
+                await Page.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
+
+                //clear ads
+                await ClearAdsAsync();
+            }
+
+
         }
 
 
@@ -60,6 +128,9 @@ namespace AutomationExerciseDemo.UI.Pages
         //Check for login error
         public async Task<bool> IsLoginErrorVisibleAsync()
         {
+             //wait for error to display:
+             await WaitForVisibleAsync(LoginError);
+
             return await IsVisibleAsync(LoginError);
 
         }

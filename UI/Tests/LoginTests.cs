@@ -22,21 +22,10 @@ namespace AutomationExerciseDemo.UI.Tests
                         
         }
 
-        [Test]
-        public async Task UserLoginCorrectEmailandPwd_TestCase_2()
+        [Test, Retry(2)]
+        [TestCaseSource(nameof(LoginUsers))]
+        public async Task UserLoginCorrectEmailandPwd_TestCase_2(UserData data)
         {
-            //Get CSV data
-            var csvPath = Path.Combine(
-                AppContext.BaseDirectory,
-                "Data",
-                "TestData",
-                "Login",
-                "users.csv"
-            );
-
-            var testData = CsvReader.ReadCsv<UserData>(csvPath);
-
-            foreach(var data in testData){
 
             //Navigate to Login pg
             await _loginPage.NavigateAsync();
@@ -47,26 +36,13 @@ namespace AutomationExerciseDemo.UI.Tests
             //verify user is directed to the HomePage and is logegd in
             Assert.That(await _homePage.IsUserLoggedInAsync(), Is.True);
 
-            }
-
         } 
 
-        [Test]
-        public async Task UserLoginInvalidEmail_TestCase_3a()
+        [Test, Retry(2)]
+        [TestCaseSource(nameof(LoginUsers))]
+        public async Task UserLoginInvalidEmail_TestCase_3a(UserData data)
         {
-            //Get CSV data
-            var csvPath = Path.Combine(
-                AppContext.BaseDirectory,
-                "Data",
-                "TestData",
-                "Login",
-                "users.csv"
-            );
-
-            var testData = CsvReader.ReadCsv<UserData>(csvPath);
-
-            foreach(var data in testData){
-
+           
             //navigate to Login pg
             await _loginPage.NavigateAsync();
 
@@ -76,25 +52,13 @@ namespace AutomationExerciseDemo.UI.Tests
             //verify invalid email message is displayed
             Assert.That(await _loginPage.IsLoginErrorVisibleAsync(), Is.True);
 
-            }
+            
         }
 
-        [Test]
-        public async Task UserLoginInvalidPassword_TestCase_3b()
+        [Test, Retry(2)]
+        [TestCaseSource(nameof(LoginUsers))]
+        public async Task UserLoginInvalidPassword_TestCase_3b(UserData data)
         {
-            //Get csv data
-            var csvPath = Path.Combine(
-                AppContext.BaseDirectory,
-                "Data",
-                "TestData",
-                "Login",
-                "users.csv"
-            );
-
-            var testData = CsvReader.ReadCsv<UserData>(csvPath);
-
-            foreach(var data in testData){
-
             //navigate to Login pg
             await _loginPage.NavigateAsync();
 
@@ -104,26 +68,16 @@ namespace AutomationExerciseDemo.UI.Tests
             //verify invalid email message is displayed
             Assert.That(await _loginPage.IsLoginErrorVisibleAsync(), Is.True);
 
-            }
+            
 
         }
 
 
-        [Test]
-        public async Task UserLogn_Logout_TestCase_4()
+        [Test, Retry(2)]
+        [TestCaseSource(nameof(LoginUsers))]
+        public async Task UserLogn_Logout_TestCase_4(UserData data)
         {
-            //get CSV data
-            var csvPath = Path.Combine(
-                AppContext.BaseDirectory,
-                "Data",
-                "TestData",
-                "Login",
-                "users.csv"
-            );
-
-            var testData = CsvReader.ReadCsv<UserData>(csvPath);
-
-            foreach(var data in testData){
+            
             //navigate to login pg
             await _loginPage.NavigateAsync();
 
@@ -138,12 +92,18 @@ namespace AutomationExerciseDemo.UI.Tests
 
             //verify the user is successfully logged out
             Assert.That(await _loginPage.IsUserLoggedOut(), Is.True);
-
-            }
-
-
+            
         }
 
+
+        //create LoginUsers data set:
+        public static IEnumerable<UserData> LoginUsers =>
+            CsvReader.ReadCsv<UserData>(Path.Combine(
+                AppContext.BaseDirectory,
+                "Data",
+                "TestData",
+                "Login",
+                "users.csv"));
 
     }
 

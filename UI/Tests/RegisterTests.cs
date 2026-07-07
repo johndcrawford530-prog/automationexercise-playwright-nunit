@@ -25,10 +25,12 @@ namespace AutomationExerciseDemo.UI.Tests
 
         }
 
-        [Test]
-        public async Task RegisterUserTest_TestCase_1()
+        [Test, Retry(2)]
+        [TestCaseSource((nameof(NewUserData)))]
+        public async Task RegisterUserTest_TestCase_1(SignUpData data)
         {
 
+            /*
             //load CSV test Data
             var csvPath = Path.Combine(
                 AppContext.BaseDirectory,
@@ -43,6 +45,9 @@ namespace AutomationExerciseDemo.UI.Tests
             //step thru CSV Test Data set and register users then delete account 
             foreach(var data in testData)
             {
+            */
+
+        
                 //Navigate to Login:
                 await _loginPage.NavigateAsync();
 
@@ -70,13 +75,15 @@ namespace AutomationExerciseDemo.UI.Tests
                 Assert.That(await _accountDeletedPage.IsSuccessMessageVisibleAsync(), Is.True);
 
 
-            }
+            //}
         }
 
-        [Test]
-        public async Task RegisterExistingUser_TestCase_5()
+        [Test, Retry(2)]
+        [TestCaseSource(nameof(ExistingUserData))]
+        public async Task RegisterExistingUser_TestCase_5(UserData data)
         {
             //load CSV data:
+           /*
             var csvPath = Path.Combine(
                 AppContext.BaseDirectory,
                 "Data",
@@ -91,6 +98,7 @@ namespace AutomationExerciseDemo.UI.Tests
             // attempt to register an Existing User
             foreach(var data in testData)
             {
+            */
 
                 //Navigate to Login:
                 await _loginPage.NavigateAsync();
@@ -99,7 +107,7 @@ namespace AutomationExerciseDemo.UI.Tests
                 //enter signup name and email, click SignUp button
                 await _loginPage.RegisterAsync(data.Name, data.Email);
                 
-            }
+            //}
 
 
             //verify Email Address already exist! error is displayed
@@ -108,6 +116,26 @@ namespace AutomationExerciseDemo.UI.Tests
 
 
         }
+
+        //create Registration New Users Data set
+
+        public static IEnumerable<SignUpData> NewUserData =>
+        CsvReader.ReadCsv<SignUpData>(Path.Combine(
+                AppContext.BaseDirectory,
+                "Data",
+                "TestData",
+                "Registration",
+                "RegistrationData.csv"));
+
+
+        //Create Existing Registered User Data set
+        public static IEnumerable<UserData> ExistingUserData =>
+        CsvReader.ReadCsv<UserData>(Path.Combine(
+                AppContext.BaseDirectory,
+                "Data",
+                "TestData",
+                "Registration",
+                "RegistrationExistingUsers.csv"));
 
     }
 }
