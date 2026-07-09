@@ -30,13 +30,13 @@ namespace AutomationExerciseDemo.UI.Tests
             await _homePage.NavigateAsync();
 
             //Verify HomePage is displayed
-            Assert.That(await _homePage.IsUserLoggedInAsync(), Is.True);
+            Assert.That(await _homePage.IsHomePageVisibleAsync(), Is.True);
 
             //Click the Test Cases link
             await _homePage.GoToTestCasesPageAsync();
 
             //Verify the Test Cases Page is displayed
-            Assert.That(_testCasePage.IsTestCaseHeaderDisplayedAsync(), Is.True);
+            Assert.That(await _testCasePage.IsTestCaseHeaderDisplayedAsync(), Is.True);
         }
 
 

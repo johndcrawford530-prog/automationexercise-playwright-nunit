@@ -158,6 +158,34 @@ namespace AutomationExerciseDemo.UI.Pages
         }
 
 
+        // work around for google vignette URL issue:
+        public async Task GoogleVignetteFixAsync(String expectedUrl)
+        {
+            var url = Page.Url;
+
+            if (url.Contains("google_vignette"))
+            {
+                await Page.GotoAsync(expectedUrl);
+                await Page.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
+                return;
+            }
+
+            // if a google vignette frame is displayed:
+
+            var vignetteFrame = Page.Frames.FirstOrDefault(f => f.Url.Contains("googleads"));
+
+            if(vignetteFrame != null)
+            {
+
+                await Page.GotoAsync(expectedUrl);
+                await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+                
+            }
+
+        }
+
+
+
         //helper method to remove any ads that may impact tests:
         protected async Task ClearAdsAsync()
         {

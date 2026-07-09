@@ -125,6 +125,21 @@ namespace AutomationExerciseDemo.UI.Pages
 
         }
 
+        //is ProductDetails page displayed:
+        public async Task<bool> IsProductDetailsPageDisplayedAsync()
+        {
+            var url = Page.Url;
+            bool isVisible = false;
+
+            if (url.Contains("/product_details") && await Page.IsVisibleAsync(ProductName) )
+            {
+                isVisible = true;
+            }
+
+            return isVisible;
+
+        }
+
 
 
 

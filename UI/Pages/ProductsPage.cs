@@ -32,7 +32,7 @@ namespace AutomationExerciseDemo.UI.Pages
         }
 
        //Search for product:
-       public async Task SearchForProduct(string productName)
+       public async Task SearchForProductAsync(string productName)
         {
 
             await TypeAsync(SearchInputBox, productName);
@@ -59,10 +59,10 @@ namespace AutomationExerciseDemo.UI.Pages
 
                 products.Add(new ProductItem
                 {
-                    Name = await item.Locator("p").InnerTextAsync(),
-                    Price = await item.Locator("h2").InnerTextAsync(),
-                    AddToCartButton = item.Locator("a.add-to-cart"),
-                    ViewDetailsLink = item.Locator("a[href*='product_details']"),
+                    Name = await item.Locator(".productinfo p").InnerTextAsync(),
+                    Price = await item.Locator(".productinfo h2").InnerTextAsync(),
+                    AddToCartButton = item.Locator(".productinfo a.add-to-cart"),
+                    ViewDetailsLink = item.Locator(".choose a[href*='product_details']"),
                     RootElement = item
 
                 });
@@ -73,6 +73,15 @@ namespace AutomationExerciseDemo.UI.Pages
             
         }
 
+        //get the first product on the Page:
+        public async Task<ProductItem> GetFirstProductAsync()
+        {
+            var products = await GetAllProductsAsync();
+            
+            
+            return products.FirstOrDefault();
+        }
+
        //Find product, input: product name, return could be null if item not found.
        public async Task<ProductItem?> FindProductAsync(string productName)
         {
@@ -81,6 +90,21 @@ namespace AutomationExerciseDemo.UI.Pages
 
             return products.FirstOrDefault(p=> p.Name.Contains(productName, StringComparison.OrdinalIgnoreCase));
 
+
+        }
+
+        //Is Products page displayed:
+        public async Task<bool> IsProductsPageDisplayedAsync()
+        {
+            var url = Page.Url;
+            bool isVisible = false;
+
+            if (url.Contains("/products") && await Page.IsVisibleAsync(SearchInputBox) )
+            {
+                isVisible = true;
+            }
+
+            return isVisible;
 
         }
 

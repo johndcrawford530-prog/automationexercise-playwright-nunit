@@ -36,10 +36,13 @@
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </Content>
 
-    <Content Include="Data\TestData\ContactUs\ContactUsForm.csv">
+  <Content Include="Data\TestData\ContactUs\ContactUsForm.csv">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </Content>
 
+  <Content Include="Data\TestData\TestFiles\ProductSearchData.csv">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </Content>
  
   </ItemGroup>
 
