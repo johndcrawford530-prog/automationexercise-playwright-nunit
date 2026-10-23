@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutomationExerciseDemo.UI.Pages;
 using AutomationExerciseDemo.UI.Models;
 using AutomationExerciseDemo.Config;
+using AutomationExerciseDemo.Utilities;
 
 
 namespace AutomationExerciseDemo.UI.Pages
@@ -60,7 +61,7 @@ namespace AutomationExerciseDemo.UI.Pages
                 products.Add(new ProductItem
                 {
                     Name = await item.Locator(".productinfo p").InnerTextAsync(),
-                    Price = await item.Locator(".productinfo h2").InnerTextAsync(),
+                    Price = PriceParser.Parse(await item.Locator(".productinfo h2").InnerTextAsync()),
                     AddToCartButton = item.Locator(".productinfo a.add-to-cart"),
                     ViewDetailsLink = item.Locator(".choose a[href*='product_details']"),
                     RootElement = item

@@ -7,7 +7,7 @@ public class ProductItem
 {
     
     public string Name{get; set;}
-    public string Price{get; set;}
+    public decimal Price{get; set;}
 
     public ILocator AddToCartButton{get; set;}
 

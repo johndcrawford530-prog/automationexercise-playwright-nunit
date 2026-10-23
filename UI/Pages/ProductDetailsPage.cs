@@ -109,6 +109,11 @@ namespace AutomationExerciseDemo.UI.Pages
         public async Task AddToCartAsync()
         {
             await ClickAsync(AddToCartButton);
+
+            //wait for Added to Cart popup to display
+
+
+            
         }
 
 

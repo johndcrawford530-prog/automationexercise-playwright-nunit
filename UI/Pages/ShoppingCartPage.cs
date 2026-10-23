@@ -2,6 +2,7 @@ using Microsoft.Playwright;
 using AutomationExerciseDemo.UI.Pages;
 using AutomationExerciseDemo.UI.Models;
 using AutomationExerciseDemo.Config;
+using AutomationExerciseDemo.Utilities;
 using System.Linq;
 
 
@@ -20,6 +21,13 @@ namespace AutomationExerciseDemo.UI.Pages
         }
 
 
+        //Navigate to Shopping Cart Page:
+        public async Task NavigateAsync()
+        {
+            await NavigateToAsync("/view_cart"); //base URL
+        }
+
+
         //get cart item(s)
         public async Task<IReadOnlyList<CartItem>> GetCartItemsAsync()
         {
@@ -35,7 +43,7 @@ namespace AutomationExerciseDemo.UI.Pages
                 var name = await row.Locator(".cart_description h4 a").InnerTextAsync();
                 var description = await row.Locator(".cart_description p").InnerTextAsync();
                 var priceText = await row.Locator(".cart_price p").InnerTextAsync();
-                var quantityText = await row.Locator(".cart_quantity input").InputValueAsync();
+                var quantityText = await row.Locator(".cart_quantity button").InnerTextAsync();
                 var totalText = await row.Locator(".cart_total_price").InnerTextAsync();
                 
 
@@ -44,9 +52,9 @@ namespace AutomationExerciseDemo.UI.Pages
                 {
                     Name = name.Trim(),
                     Description = description.Trim(),
-                    Price = ParsePrice(priceText),
+                    Price = PriceParser.Parse(priceText),
                     Quantity = int.Parse(quantityText),
-                    Total = ParsePrice(totalText)
+                    Total = PriceParser.Parse(totalText)
                 });
             }
 
@@ -66,11 +74,7 @@ namespace AutomationExerciseDemo.UI.Pages
 
         
 
-        // parse price data:
-        private decimal ParsePrice(string text)
-        {
-            return decimal.Parse(text.Replace("Rs.", "").Trim());
-        }
+       
 
         // remove item from cart
         public async Task RemoveItemAsync(string productName)

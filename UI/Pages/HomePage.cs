@@ -15,12 +15,19 @@ namespace AutomationExerciseDemo.UI.Pages
     private const string HomePageText = "div.features_items h2.title:has-text('FEATURES ITEMS')";
     private const string SignupLoginLink = "a[href='/login']";
     private const string ProductsLink = "a[href='/products']";
-    private const string CartLink = "a[href='/view_cart']";
+    private const string CartLink = "div.shop-menu.pull-right a[href='/view_cart']";
     private const string ContactUsLink = "a[href='/contact_us']";
     private const string TestCasesLink = "div.shop-menu.pull-right a[href='/test_cases']";
     private const string LogoutLink = "a[href='/logout']";
     private const string LoggedInUserLabel = "a:has-text('Logged in as')";
+    /*
+    private const string SubscriptionHeaderText = "h2:has-text('Subscription')";
+    private const string SubscribeEmailInput = "input[id='susbscribe_email']";
+    private const string SubscribeButton = "button[id='subscribe']";
+    private const string SuccessAlertMsg = ".alert-success.alert";
+    */
     private string ExpectedUrl => Config.BaseUrl;
+    
 
     //constructor
     public HomePage(IPage page, EnvironmentConfig config) : base(page,config){}
@@ -79,7 +86,7 @@ namespace AutomationExerciseDemo.UI.Pages
         await Page.WaitForSelectorAsync("div.shop-menu.pull-right", new(){ State = WaitForSelectorState.Visible});
 
 
-        await ClickAsync(ContactUsLink);
+        await ClickAsync(CartLink);
     } 
 
     //navigate to contact page
@@ -108,12 +115,7 @@ namespace AutomationExerciseDemo.UI.Pages
             await Page.WaitForTimeoutAsync(300);
             await GoogleVignetteFixAsync($"{Config.BaseUrl}/test_cases");
 
-            
-
-
-
-
-
+       
     }
 
     //Check if user is logged in
@@ -132,6 +134,40 @@ namespace AutomationExerciseDemo.UI.Pages
     {
         await ClickAsync(LogoutLink);
     }
+
+/*
+
+    //verify Subscription Header text is displayed:
+    public async Task<bool> IsSubscriptionTextDisplayed()
+        {
+            
+            return await IsVisibleAsync(SubscriptionHeaderText);
+        }
+
+
+    //enter email to subscribe to site email list.
+    public async Task SubscribeByEmail(string email)
+        {
+            
+            await HighlightAsync(SubscriptionHeaderText);
+            await HighlightAsync(SubscribeEmailInput);
+            await HighlightAsync(SubscribeButton);
+
+            
+            //enter email into subscription Email input field
+            await TypeAsync(SubscribeEmailInput, email);
+
+            //Click the subscribe button:
+            await ClickAsync(SubscribeButton);
+
+        }
+
+    // verify the subscription success message is displayed:
+    public async Task<bool> IsSubscriptionSuccessMsgDisplayed()
+        {
+            return await IsVisibleAsync(SuccessAlertMsg);
+        }
+*/
 
     }
 }

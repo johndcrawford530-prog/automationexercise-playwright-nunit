@@ -95,9 +95,7 @@ namespace AutomationExerciseDemo.UI.Tests
             
         }
 
-        //TC10 - Verify subscription in home page
 
-        //TC11 - Verify subscription in Cart Page
 
         //TC12 - Verify products in Cart
 

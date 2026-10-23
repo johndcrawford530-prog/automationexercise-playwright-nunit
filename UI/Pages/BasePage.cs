@@ -11,6 +11,11 @@ namespace AutomationExerciseDemo.UI.Pages
         protected readonly IPage Page;
         protected readonly EnvironmentConfig Config;
 
+        private const string SubscriptionHeaderText = "h2:has-text('Subscription')";
+        private const string SubscribeEmailInput = "input[id='susbscribe_email']";
+        private const string SubscribeButton = "button[id='subscribe']";
+        private const string SuccessAlertMsg = ".alert-success.alert";
+
         protected BasePage(IPage page, EnvironmentConfig config)
         {
             Page = page;
@@ -85,6 +90,8 @@ namespace AutomationExerciseDemo.UI.Pages
 
         }
 
+
+       
 
         // close any ads if present
         protected async Task CloseAdsAsync()
@@ -206,6 +213,38 @@ namespace AutomationExerciseDemo.UI.Pages
 
             await element.EvaluateAsync("el=> el.style.border = '3px solid red'");
         }
+
+
+         //verify Subscription Header text is displayed:
+        public async Task<bool> IsSubscriptionTextDisplayed()
+            {
+                
+                return await IsVisibleAsync(SubscriptionHeaderText);
+            }
+
+
+        //enter email to subscribe to site email list.
+        public async Task SubscribeByEmail(string email)
+            {
+                
+                await HighlightAsync(SubscriptionHeaderText);
+                await HighlightAsync(SubscribeEmailInput);
+                await HighlightAsync(SubscribeButton);
+
+                
+                //enter email into subscription Email input field
+                await TypeAsync(SubscribeEmailInput, email);
+
+                //Click the subscribe button:
+                await ClickAsync(SubscribeButton);
+
+            }
+
+        // verify the subscription success message is displayed:
+        public async Task<bool> IsSubscriptionSuccessMsgDisplayed()
+            {
+                return await IsVisibleAsync(SuccessAlertMsg);
+            }
 
 
 
