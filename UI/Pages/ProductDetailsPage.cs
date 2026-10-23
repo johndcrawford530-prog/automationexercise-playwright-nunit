@@ -25,11 +25,15 @@ namespace AutomationExerciseDemo.UI.Pages
         protected const string ReviewEmailAddressInput = "input[id='email']";
         protected const string ReviewTextBoxInput = "textarea[id='review']";
         protected const string ReviewSubmitButton = "button[id='button-review']";
+        private readonly IPage _page;
 
 
 
         //constructor
-        public ProductDetailsPage(IPage page, EnvironmentConfig config) : base(page, config){}
+        public ProductDetailsPage(IPage page, EnvironmentConfig config) : base(page, config)
+        {
+            _page = page;
+        }
 
         //navigate to page:
         public async Task NavigateAsync(int productID)
@@ -108,12 +112,19 @@ namespace AutomationExerciseDemo.UI.Pages
         //Add to cart
         public async Task AddToCartAsync()
         {
+            //await ClickAsync(AddToCartButton);
+
+            var waitForRequest = _page.WaitForRequestAsync("**/add_to_cart");
+
             await ClickAsync(AddToCartButton);
+            await waitForRequest;
 
-            //wait for Added to Cart popup to display
+            await _page.Locator("#cartModal").WaitForAsync(new()
+            {
+                State = WaitForSelectorState.Visible
+            });
 
-
-            
+                        
         }
 
 

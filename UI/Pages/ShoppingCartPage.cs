@@ -13,11 +13,13 @@ namespace AutomationExerciseDemo.UI.Pages
         //locators:
         private readonly ILocator _cartRows;
         private const string CheckoutButton = "a.check_out";
+        private readonly IPage _page;
 
         //constructor:
         public ShoppingCartPage(IPage page, EnvironmentConfig config) : base(page, config)
         {
             _cartRows = page.Locator("table.table.table-condensed tbody tr");
+            _page = page;
         }
 
 
@@ -36,10 +38,10 @@ namespace AutomationExerciseDemo.UI.Pages
 
             for(int i = 0; i < count; i++)
             {
-                var row = _cartRows.Nth(i);
+                var row = _page.Locator("table.table.table-condensed tbody tr").Nth(i);
 
 
-                //get detaisl from item row
+                //get details from item row
                 var name = await row.Locator(".cart_description h4 a").InnerTextAsync();
                 var description = await row.Locator(".cart_description p").InnerTextAsync();
                 var priceText = await row.Locator(".cart_price p").InnerTextAsync();

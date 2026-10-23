@@ -45,7 +45,8 @@ namespace AutomationExerciseDemo.UI.Tests
             var productItem = await _productsPage.GetFirstProductAsync();
 
             //click add to cart link:
-            await productItem.ClickAddToCartAsync();
+            //await productItem.AddToCartButton.ClickAsync();
+            await _productsPage.ClickAddToCartAsync(productItem);
 
             //Go to CartPage, verify the product is successfully added to the cart.  Ensure price, quantity and total price is correct
             await _cartPage.NavigateAsync();
@@ -56,10 +57,13 @@ namespace AutomationExerciseDemo.UI.Tests
             if(cartItem != null)
             {
                 //verify price matches:
-                Assert.That(productItem.Price = cartItem.Price, Is.True);
+                Assert.That(productItem.Price == cartItem.Price, Is.True);
             }
 
         }
+
+
+        
 
 
     }

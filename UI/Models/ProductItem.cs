@@ -15,8 +15,7 @@ public class ProductItem
 
     public ILocator RootElement{get; set;}
 
-    public async Task ClickAddToCartAsync()=> await AddToCartButton.ClickAsync();
-
+   
     public async Task ClickViewDetailsAsync()=> await ViewDetailsLink.ClickAsync();
 
 

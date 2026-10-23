@@ -4,6 +4,7 @@ using AutomationExerciseDemo.UI.Pages;
 using AutomationExerciseDemo.UI.Models;
 using AutomationExerciseDemo.Config;
 using AutomationExerciseDemo.Utilities;
+using Microsoft.AspNetCore.Razor.Language;
 
 
 namespace AutomationExerciseDemo.UI.Pages
@@ -15,13 +16,14 @@ namespace AutomationExerciseDemo.UI.Pages
         protected const string SearchInputBox = "input[id='search_product']";
         protected const string SearchButton = "button[id='submit_search']";
         protected const string ProductsList = "div.product-image-wrapper";
+        private readonly IPage _page;
 
 
 
         //constructor:
         public ProductsPage(IPage page, EnvironmentConfig config) : base(page, config)
         {
-            
+            _page = page;
         }
 
 
@@ -108,6 +110,31 @@ namespace AutomationExerciseDemo.UI.Pages
             return isVisible;
 
         }
+
+        //Click Add Cart button:
+        public async Task ClickAddToCartAsync(ProductItem item)
+        {
+            await item.AddToCartButton.ClickAsync();
+            
+
+            // Wait for the modal popup to appear
+            await _page.Locator("#cartModal").WaitForAsync(new()
+            {
+                State = WaitForSelectorState.Visible
+            });
+
+            //close cart popup:
+            await _page.GetByRole(AriaRole.Button, new(){ Name = "Continue Shopping"}).ClickAsync();
+
+
+    
+        }
+
+        //Click View Product Details:
+        public async Task ClickViewDetailsAsync(ProductItem item)
+        {
+            await item.ViewDetailsLink.ClickAsync();
+        } 
 
 
     }

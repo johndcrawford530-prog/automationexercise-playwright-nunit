@@ -55,7 +55,8 @@ namespace AutomationExerciseDemo.UI.Tests
             
             // ensure first product exist and click on View Product for the first product in the list
             Assert.IsNotNull(firstProduct);
-            await firstProduct!.ViewDetailsLink.ClickAsync();
+            
+            await _productsPage.ClickViewDetailsAsync(firstProduct);
 
             // Verify the Product Detail page is displayed and contains the following data points:  Product Name, Category, Price, Availability, Condition, Brand
             Assert.That(await _productDetailsPage.IsProductDetailsPageDisplayedAsync(), Is.True);
@@ -97,14 +98,11 @@ namespace AutomationExerciseDemo.UI.Tests
 
 
 
-        //TC12 - Verify products in Cart
-
-        //TC13 - Verify product quantity in Cart
-
+        
 
         
 /*************************************************************
-*******  Data sets asnd helpers ******************************
+*******  Data sets and helpers ******************************
 *************************************************************/
         //create LoginUsers data set:
         public static IEnumerable<UserData> LoginUsers =>
